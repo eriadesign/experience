@@ -18,8 +18,11 @@
 const PLANILHA_ID = '';
 
 const ABA = 'Sugestões';
+/* Os aceites entram no fim de propósito: assim as linhas já gravadas no
+   layout anterior continuam válidas, sem precisar de remanejo. */
 const COLUNAS = ['Data', 'Origem', 'Nome', 'E-mail', 'Telefone',
-                 'Destinos marcados', 'Sugestão', 'Assunto'];
+                 'Destinos marcados', 'Sugestão', 'Assunto',
+                 'Aceitou termos', 'Quer novidades'];
 
 /** O envio dos formulários cai aqui. */
 function doPost(e) {
@@ -87,6 +90,11 @@ function gravar(p, ps) {
       (ps['destinos[]'] || []).join(', '),
       p.sugestao || '',
       p.assunto || '',
+      // Caixa desmarcada não é enviada pelo navegador: a ausência é o
+      // "não". Gravar a palavra, e não o vazio, deixa claro na planilha
+      // que a pergunta foi feita e a resposta foi negativa.
+      p.aceite_termos ? 'Sim' : 'Não',
+      p.aceite_novidades ? 'Sim' : 'Não',
     ]);
   } finally {
     trava.releaseLock();
@@ -140,16 +148,23 @@ function migrar(f, atual) {
   if (quantas < 1) return;
 
   const velhas = f.getRange(2, 1, quantas, COLUNAS_V1.length).getValues();
-  const novas = velhas.map((l) => [
-    l[0],   // Data
-    l[1],   // Origem
-    '',     // Nome — não existia
-    l[4],   // E-mail
-    '',     // Telefone — não existia
-    l[2],   // Destinos marcados
-    l[3],   // Sugestão
-    l[5],   // Assunto
-  ]);
+  const novas = velhas.map((l) => {
+    const nova = [
+      l[0],   // Data
+      l[1],   // Origem
+      '',     // Nome — não existia
+      l[4],   // E-mail
+      '',     // Telefone — não existia
+      l[2],   // Destinos marcados
+      l[3],   // Sugestão
+      l[5],   // Assunto
+    ];
+    // Completa até a largura de hoje: cada coluna criada depois deste
+    // layout entra vazia, e o setValues exige a linha do tamanho exato
+    // da faixa.
+    while (nova.length < COLUNAS.length) nova.push('');
+    return nova;
+  });
   f.getRange(2, 1, novas.length, COLUNAS.length).setValues(novas);
 }
 

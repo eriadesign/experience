@@ -36,6 +36,87 @@
 
 .auvp-isca { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
+/* Dois campos curtos dividindo a linha. Numa coluna estreita eles voltam
+   a empilhar: 250px por campo é o limite abaixo do qual o rótulo em
+   caixa alta começa a quebrar no meio. */
+.auvp-form__dupla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: inherit;
+}
+
+/* ---- Aceites legais ----
+   Caixa de verdade, não um chip: aqui o estado precisa ser óbvio e o
+   texto é longo, então a marca fica à esquerda e o texto corre ao lado.
+   A caixa continua sendo o <input>, visível — é o que faz a validação
+   nativa do `required` ter onde encostar o aviso do navegador. */
+.auvp-aceites {
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 0.35rem;
+}
+.auvp-aceite {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+  cursor: pointer;
+}
+.auvp-aceite input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  /* desce até a primeira linha do texto ao lado */
+  margin-top: 0.2em;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.auvp-aceite input:hover { border-color: var(--verde-30); }
+.auvp-aceite input:checked { background: var(--verde); border-color: var(--verde); }
+/* O tique: as mesmas duas bordas giradas do selo do agradecimento. */
+.auvp-aceite input:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 45%;
+  width: 55%; height: 28%;
+  border-left: 1.5px solid var(--paper);
+  border-bottom: 1.5px solid var(--paper);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.auvp-aceite input:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+/* Só depois de tentar enviar, que é quando o `:user-invalid` entra —
+   marcar de vermelho uma caixa ainda não visitada seria acusar antes. */
+.auvp-aceite input:user-invalid { border-color: #a33; }
+.auvp-aceite span {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+.auvp-aceite a {
+  color: var(--verde);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.auvp-aceite a:hover { text-decoration-thickness: 2px; }
+
+/* O botão fica grudado no pé enquanto o resto do formulário rola. Só
+   tem efeito onde há rolagem — no verso do card das Imersões, que ganhou
+   teto de altura. Sem isso o botão some abaixo da dobra do card e a
+   pessoa não vê que há o que enviar. No painel da Missão China, que não
+   rola, o `sticky` não muda nada e o degradê some contra o mesmo papel. */
+.auvp-form__envio {
+  position: sticky;
+  bottom: 0;
+  padding-top: 1.1rem;
+  background: linear-gradient(to top, var(--paper-2) 60%, rgba(241, 238, 232, 0));
+}
+
 /* O agradecimento que toma o lugar do formulário depois do envio. Vale
    nos dois lugares em que o formulário aparece, por isso mora aqui.
 

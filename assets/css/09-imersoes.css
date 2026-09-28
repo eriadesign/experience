@@ -31,11 +31,20 @@
 .auvp-card { perspective: 1600px; }
 
 /* O mínimo é o piso do card quando o conteúdo é curto; quem manda acima
-   dele é a altura da linha da grade, igual para os dois. */
+   dele é a altura da linha da grade, igual para os dois.
+
+   O teto entrou com os aceites legais: o formulário passou de 900px, e
+   sem limite a dobra inteira ficava maior que a tela — com o card da
+   China crescendo junto, virando uma foto gigante de puro enchimento.
+   Com teto, quem cede é o verso, que rola por dentro (o `overflow-y`
+   mais abaixo); a frente é foto e não muda. Numa coluna só o teto sai:
+   lá os cards ficam empilhados e quem rola é a página, que é melhor que
+   rolar dentro de um card no celular. */
 .auvp-card__flip {
   position: relative;
   display: grid;
   min-height: clamp(460px, 68vh, 660px);
+  max-height: min(86vh, 820px);
   transform-style: preserve-3d;
   transition: transform 0.85s var(--ease);
 }
@@ -136,5 +145,5 @@
   /* Numa coluna só os dois ficam empilhados, não lado a lado: não há
      comparação a fazer, e cada um volta a ter a altura do que carrega. */
   .auvp-dest__grid { grid-template-columns: 1fr; }
-  .auvp-card__flip { min-height: clamp(420px, 76vh, 560px); }
+  .auvp-card__flip { min-height: clamp(420px, 76vh, 560px); max-height: none; }
 }

@@ -121,6 +121,30 @@ Duas diferenças, ambas de propósito: o `assunto` (campo escondido) diz de qual
 página veio, senão as duas origens chegam iguais na caixa de entrada; e o
 "Voltar" só existe na home, onde ele desvira o card.
 
+**Os dois aceites legais** ficam no fim, antes do botão. O primeiro é
+`required`: sem ele o navegador barra o envio, igual a um campo obrigatório
+vazio. A caixa é o `<input>` de verdade, visível — é isso que dá ao aviso do
+navegador onde encostar. Os dois viajam como `aceite_termos` e
+`aceite_novidades`, e chegam na planilha como **Sim/Não**: caixa desmarcada não
+é enviada pelo navegador, e gravar a palavra deixa claro que a pergunta foi
+feita e a resposta foi negativa.
+
+> ⚠️ **Os dois links do primeiro aceite apontam para `#`.** O site ainda não
+> tem páginas de Termos de Uso nem de Política de Privacidade. Enquanto
+> estiverem assim, o formulário pede concordância com documentos que ninguém
+> consegue abrir. **Trocar os dois `href` nos dois arquivos** é o que fecha
+> isso.
+
+**O formulário cresceu e o card ganhou teto.** Nome e telefone dividem a linha
+(`.auvp-form__dupla`) e o e-mail fica sozinho, que é o que mais precisa de
+largura. Ainda assim o conjunto passa de 900px, então o `.auvp-card__flip` tem
+`max-height: min(86vh, 820px)`: sem ele a dobra ficava maior que a tela e o
+card da China crescia junto, virando foto gigante de enchimento. Com teto, quem
+cede é o verso, que rola por dentro — e o botão fica grudado no pé
+(`.auvp-form__envio`), senão ele sumia abaixo da dobra do card e a pessoa não
+via que havia o que enviar. Numa coluna só o teto sai: lá os cards ficam
+empilhados e quem rola é a página.
+
 Os dois cards das Imersões têm sempre a mesma altura, e é a grade que garante
 isso: **não ponha `align-items: start` em `.auvp-dest__grid`**. Com ele, cada
 card passa a ter a própria altura — o de Próximos destinos cresce até caber o
@@ -360,6 +384,8 @@ O que sai no envio:
 | `nome` | obrigatório |
 | `email` | obrigatório |
 | `telefone` | opcional |
+| `aceite_termos` | **obrigatório** — trava o envio se não for marcado |
+| `aceite_novidades` | opcional |
 | `_isca` | a armadilha de robô: preenchida, o script descarta |
 
 A ordem das colunas na planilha é a do `COLUNAS`, no topo do `Codigo.gs`, e o

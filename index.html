@@ -291,20 +291,44 @@
             <label for="sug-destino">Sua sugestão</label>
             <input id="sug-destino" name="sugestao" type="text" placeholder="Destino e o que você gostaria de ver lá" required>
             </div>
-            <div class="auvp-field">
-            <label for="sug-nome">Nome</label>
-            <input id="sug-nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar" required>
+            <!-- Nome e telefone dividem a linha: são curtos, e com os
+                 aceites embaixo o formulário ficaria alto demais se cada
+                 um tomasse uma linha inteira. O e-mail fica sozinho,
+                 que é o que mais precisa de largura. -->
+            <div class="auvp-form__dupla">
+              <div class="auvp-field">
+              <label for="sug-nome">Nome</label>
+              <input id="sug-nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar" required>
+              </div>
+              <div class="auvp-field">
+              <label for="sug-telefone">Telefone</label>
+              <input id="sug-telefone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+              </div>
             </div>
             <div class="auvp-field">
             <label for="sug-email">E-mail</label>
             <input id="sug-email" name="email" type="email" autocomplete="email" placeholder="voce@empresa.com" required>
             </div>
-            <div class="auvp-field">
-            <label for="sug-telefone">Telefone</label>
-            <input id="sug-telefone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+
+            <!-- Aceites legais. O primeiro é obrigatório: sem ele o
+                 navegador barra o envio, do mesmo jeito que barra um
+                 campo obrigatório vazio. O segundo é livre.
+                 ATENÇÃO: os dois href="#" abaixo são provisórios — o
+                 site ainda não tem as páginas de Termos e de Política.
+                 Enquanto apontarem para "#", o aceite pede concordância
+                 com um documento que ninguém consegue ler. -->
+            <div class="auvp-aceites">
+            <label class="auvp-aceite">
+              <input type="checkbox" name="aceite_termos" value="Sim" required>
+              <span>Li e aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a> da AUVP Experience e autorizo que a equipe entre em contato por telefone, WhatsApp ou e-mail para tratar da minha sugestão e das próximas missões.</span>
+            </label>
+            <label class="auvp-aceite">
+              <input type="checkbox" name="aceite_novidades" value="Sim">
+              <span>Quero receber novidades e ofertas de outros produtos e serviços das empresas do grupo AUVP.</span>
+            </label>
             </div>
 
-            <div><button class="auvp-btn" type="submit">Enviar sugestão <i aria-hidden="true">&rarr;</i></button></div>
+            <div class="auvp-form__envio"><button class="auvp-btn" type="submit">Enviar sugestão <i aria-hidden="true">&rarr;</i></button></div>
             </form>
               <label class="auvp-card__voltar" for="virar-proximos">&larr; Voltar</label>
             </div>
@@ -544,8 +568,8 @@
         </span>
         <p class="auvp-footer__nota">Orgulhosamente feito sob o sol escaldante de Goiás &nbsp;&#9728;&#65039;</p>
         <p class="auvp-footer__legal">
-          AUVP CONSULTORIA FINANCEIRA DE INVESTIMENTOS LTDA<br>
-          CNPJ: 49.479.036/0001-99
+          DO NOT SCARE SOLUÇÕES INTERATIVAS LTDA<br>
+          CNPJ: 38.099.091/0001-37
         </p>
       </div>
 
