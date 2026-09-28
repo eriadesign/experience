@@ -121,19 +121,17 @@ Duas diferenças, ambas de propósito: o `assunto` (campo escondido) diz de qual
 página veio, senão as duas origens chegam iguais na caixa de entrada; e o
 "Voltar" só existe na home, onde ele desvira o card.
 
-**Os dois aceites legais** ficam no fim, antes do botão. O primeiro é
-`required`: sem ele o navegador barra o envio, igual a um campo obrigatório
-vazio. A caixa é o `<input>` de verdade, visível — é isso que dá ao aviso do
-navegador onde encostar. Os dois viajam como `aceite_termos` e
-`aceite_novidades`, e chegam na planilha como **Sim/Não**: caixa desmarcada não
-é enviada pelo navegador, e gravar a palavra deixa claro que a pergunta foi
-feita e a resposta foi negativa.
+**O aceite legal** fica no fim, antes do botão, e é `required`: sem ele o
+navegador barra o envio, igual a um campo obrigatório vazio. A caixa é o
+`<input>` de verdade, visível — é isso que dá ao aviso do navegador onde
+encostar. O texto cita só os Termos de Uso, com link para `termos-de-uso.html`
+em nova aba. Ele viaja como `aceite_termos` e chega na planilha como
+**Sim/Não**.
 
-> ⚠️ **Os dois links do primeiro aceite apontam para `#`.** O site ainda não
-> tem páginas de Termos de Uso nem de Política de Privacidade. Enquanto
-> estiverem assim, o formulário pede concordância com documentos que ninguém
-> consegue abrir. **Trocar os dois `href` nos dois arquivos** é o que fecha
-> isso.
+Havia uma segunda caixa, opcional, para receber novidades de outras empresas do
+grupo (`aceite_novidades`). Ela saiu do formulário, mas a coluna "Quer
+novidades" continua na planilha, para não mexer nas linhas já gravadas: como o
+campo não chega mais, as linhas novas ficam com **Não**.
 
 **O formulário cresceu e o card ganhou teto.** Nome e telefone dividem a linha
 (`.auvp-form__dupla`) e o e-mail fica sozinho, que é o que mais precisa de
@@ -385,7 +383,7 @@ O que sai no envio:
 | `email` | obrigatório |
 | `telefone` | opcional |
 | `aceite_termos` | **obrigatório** — trava o envio se não for marcado |
-| `aceite_novidades` | opcional |
+| `aceite_novidades` | não é mais enviado — a caixa saiu do formulário |
 | `_isca` | a armadilha de robô: preenchida, o script descarta |
 
 A ordem das colunas na planilha é a do `COLUNAS`, no topo do `Codigo.gs`, e o
