@@ -121,10 +121,10 @@ Duas diferenças, ambas de propósito: o `assunto` (campo escondido) diz de qual
 página veio, senão as duas origens chegam iguais na caixa de entrada; e o
 "Voltar" só existe na home, onde ele desvira o card.
 
-**O aceite legal** fica no fim, antes do botão, e é `required`: sem ele o
-navegador barra o envio, igual a um campo obrigatório vazio. A caixa é o
-`<input>` de verdade, visível — é isso que dá ao aviso do navegador onde
-encostar. O texto cita só os Termos de Uso, com link para `termos-de-uso.html`
+**O aceite legal** fica no fim, antes do botão, e trava o envio: o botão
+"Enviar sugestão" nasce desabilitado e só acende quando a caixa é marcada
+(`aceiteTrava`, no `auvp.js`). A caixa também é `required`, que é o que barra o
+envio se o script não carregar. O texto cita só os Termos de Uso, com link para `termos-de-uso.html`
 em nova aba. Ele viaja como `aceite_termos` e chega na planilha como
 **Sim/Não**.
 
@@ -138,9 +138,9 @@ campo não chega mais, as linhas novas ficam com **Não**.
 largura. Ainda assim o conjunto passa de 900px, então o `.auvp-card__flip` tem
 `max-height: min(86vh, 820px)`: sem ele a dobra ficava maior que a tela e o
 card da China crescia junto, virando foto gigante de enchimento. Com teto, quem
-cede é o verso, que rola por dentro — e o botão fica grudado no pé
-(`.auvp-form__envio`), senão ele sumia abaixo da dobra do card e a pessoa não
-via que havia o que enviar. Numa coluna só o teto sai: lá os cards ficam
+cede é o verso, que rola por dentro, com o botão no fim do formulário. O botão
+já foi grudado no pé (`sticky`), mas na Missão China ele se prendia à janela e
+cobria o texto durante a leitura — hoje fica no fluxo normal. Numa coluna só o teto sai: lá os cards ficam
 empilhados e quem rola é a página.
 
 Os dois cards das Imersões têm sempre a mesma altura, e é a grade que garante

@@ -105,17 +105,22 @@
 }
 .auvp-aceite a:hover { text-decoration-thickness: 2px; }
 
-/* O botão fica grudado no pé enquanto o resto do formulário rola. Só
-   tem efeito onde há rolagem — no verso do card das Imersões, que ganhou
-   teto de altura. Sem isso o botão some abaixo da dobra do card e a
-   pessoa não vê que há o que enviar. No painel da Missão China, que não
-   rola, o `sticky` não muda nada e o degradê some contra o mesmo papel. */
-.auvp-form__envio {
-  position: sticky;
-  bottom: 0;
-  padding-top: 1.1rem;
-  background: linear-gradient(to top, var(--paper-2) 60%, rgba(241, 238, 232, 0));
+/* O botão fica no fim do formulário, no fluxo normal, depois do aceite.
+   Ele já foi `sticky` — mas, na Missão China, o painel não rola e o
+   `sticky` se prendia à página: o botão ficava grudado no pé da janela e
+   cobria o texto enquanto a pessoa lia. */
+.auvp-form__envio { padding-top: 1.1rem; }
+
+/* Travado até o aceite dos Termos ser marcado (ver aceiteTrava, no
+   auvp.js). Apagado, e sem a cortina verde do hover, para não parecer
+   clicável. */
+.auvp-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
+.auvp-btn:disabled:hover { color: var(--verde); border-color: var(--verde-30); }
+.auvp-btn:disabled:hover::after { transform: translateY(101%); }
+.auvp-btn:disabled:hover i { transform: none; }
 
 /* O agradecimento que toma o lugar do formulário depois do envio. Vale
    nos dois lugares em que o formulário aparece, por isso mora aqui.

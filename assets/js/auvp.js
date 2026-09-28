@@ -266,15 +266,37 @@
     form.addEventListener('submit', () => {
       setTimeout(() => {
         if (botao && botao.disabled && document.contains(form)) {
-          botao.disabled = false;
           botao.innerHTML = rotulo;
+          botao.disabled = !aceiteMarcado(form);
         }
       }, 12000);
     });
   }
 
+  /* ---- Aceite dos Termos trava o envio ----
+     O botão só acende depois que a caixa dos Termos de Uso é marcada.
+     O `required` na caixa continua lá: sem script, é ele que barra o
+     envio. Com o botão desligado, nem o Enter num campo de texto envia —
+     o navegador não faz envio implícito por um botão desabilitado. */
+  function aceiteMarcado(form) {
+    const caixa = form.querySelector('input[name="aceite_termos"]');
+    return !caixa || caixa.checked;
+  }
+
+  function aceiteTrava(form) {
+    const caixa = form.querySelector('input[name="aceite_termos"]');
+    const botao = form.querySelector('button[type="submit"]');
+    if (!caixa || !botao) return;
+    const atualizar = () => { botao.disabled = !caixa.checked; };
+    caixa.addEventListener('change', atualizar);
+    // O navegador pode devolver a caixa marcada ao voltar para a página;
+    // o estado do botão parte do que a caixa mostra, não do HTML.
+    atualizar();
+  }
+
   document.querySelectorAll('.auvp-roleta').forEach(roleta);
   document.querySelectorAll('.auvp-form--remoto').forEach(envioRemoto);
+  document.querySelectorAll('.auvp-form--remoto').forEach(aceiteTrava);
   document.querySelectorAll('.auvp-exp__panel').forEach(abas);
   if (!semMovimento.matches) document.querySelectorAll('.auvp-net__pin').forEach(cacaNiquel);
 })();
