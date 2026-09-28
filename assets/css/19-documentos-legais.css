@@ -1,0 +1,243 @@
+/* Documentos legais
+   Estilos das páginas termos-de-uso.html e
+   politica-de-privacidade.html. Texto longo e para ser lido, não folheado: coluna na
+   medida da leitura, sumário fixo ao lado no desktop e nada que se
+   mexa. Só entra nessas páginas e não afeta a home. */
+
+/* ---- Abertura ----
+   O `var(--nav-h)` no respiro de cima compensa a margem negativa da
+   barra do topo, como na capa da Missão China. */
+.auvp-legal-capa {
+  padding-block: calc(var(--nav-h) + clamp(2.5rem, 6vw, 4.5rem)) clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+.auvp-legal-capa__rotulo {
+  font-family: var(--display);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 1.25rem;
+}
+.auvp-legal-capa__title {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+}
+.auvp-legal-capa__versao {
+  margin-top: clamp(1.25rem, 2.4vw, 1.75rem);
+  font-size: var(--fs-small);
+  color: var(--ink-60);
+}
+.auvp-legal-capa__empresa {
+  margin-top: 0.75rem;
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--ink-45);
+}
+
+/* ---- Grade ----
+   Introdução e corpo na coluna da direita; o sumário ocupa a da
+   esquerda nas duas linhas, para poder ficar preso durante a leitura.
+   A ordem no HTML continua a do documento: introdução, sumário, corpo. */
+.auvp-legal {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  grid-template-areas:
+    "sumario intro"
+    "sumario corpo";
+  column-gap: clamp(2.5rem, 6vw, 6rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3.5rem, 7vw, 6.5rem);
+}
+.auvp-legal__intro { grid-area: intro; }
+.auvp-legal__corpo { grid-area: corpo; }
+.auvp-legal__sumario {
+  grid-area: sumario;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  /* Dezessete itens não cabem em qualquer tela: se passar da altura, o
+     sumário rola por dentro em vez de sair por baixo da janela. */
+  max-height: calc(100vh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* ---- Sumário ---- */
+.auvp-legal__sumario-titulo {
+  font-family: var(--display);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 1.1rem;
+}
+.auvp-legal__sumario li + li { margin-top: 0.55rem; }
+.auvp-legal__sumario a {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--ink-45);
+  transition: color 0.35s var(--ease);
+}
+.auvp-legal__sumario a:hover { color: var(--verde); }
+
+/* ---- Texto corrido ---- */
+.auvp-legal__texto { max-width: 72ch; }
+.auvp-legal__texto h2 {
+  font-size: var(--fs-sub);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+}
+.auvp-legal__texto h2 span { color: var(--verde); }
+/* Subseções (1.1, 2.1…): um degrau abaixo do título da seção. */
+.auvp-legal__texto h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 2rem 0 0.85rem;
+}
+.auvp-legal__texto h2 + h3 { margin-top: 0; }
+.auvp-legal__texto p,
+.auvp-legal__texto li {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--ink-80);
+}
+.auvp-legal__texto p + p { margin-top: 1rem; }
+.auvp-legal__texto ul {
+  margin-block: 1rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.auvp-legal__texto li + li { margin-top: 0.6rem; }
+.auvp-legal__texto li::marker { color: var(--verde); }
+.auvp-legal__texto a {
+  color: var(--verde);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+
+/* Uma linha fina separa as seções; a introdução termina do mesmo jeito. */
+.auvp-legal__intro {
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+.auvp-legal__corpo section + section {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---- Definições ----
+   Termo em destaque e a definição na mesma linha, como no documento. */
+.auvp-legal__definicoes div + div { margin-top: 1rem; }
+.auvp-legal__definicoes dt,
+.auvp-legal__definicoes dd {
+  display: inline;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.auvp-legal__definicoes dt { font-weight: 600; color: var(--ink); }
+.auvp-legal__definicoes dd { color: var(--ink-80); }
+
+/* ---- Tabelas ----
+   Rolam na horizontal dentro da própria caixa, em vez de empurrar a
+   página para os lados. */
+.auvp-legal__tabela { overflow-x: auto; margin-block: 1.5rem; }
+.auvp-legal__tabela table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+.auvp-legal__tabela th,
+.auvp-legal__tabela td {
+  padding: 0.85rem 1.25rem 0.85rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line-soft);
+}
+.auvp-legal__tabela th {
+  font-family: var(--display);
+  font-weight: 500;
+  color: var(--ink);
+}
+.auvp-legal__tabela thead th { border-bottom-color: var(--line); }
+.auvp-legal__tabela td { color: var(--ink-80); }
+/* Número da versão e data não quebram no meio. */
+.auvp-legal__tabela--versoes td:nth-child(-n+2) { white-space: nowrap; }
+
+/* Tabelas de texto longo viram fichas no celular: três colunas de
+   texto corrido não cabem em 375px. Cada linha vira um bloco e cada
+   célula ganha o nome da sua coluna em cima, lido do data-label. */
+@media (max-width: 640px) {
+  .auvp-legal__tabela--empilha { overflow: visible; }
+  .auvp-legal__tabela--empilha thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .auvp-legal__tabela--empilha tr {
+    display: block;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .auvp-legal__tabela--empilha tr:first-child { border-top: 1px solid var(--line); }
+  .auvp-legal__tabela--empilha th,
+  .auvp-legal__tabela--empilha td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+  .auvp-legal__tabela--empilha th + td,
+  .auvp-legal__tabela--empilha td + td { margin-top: 0.75rem; }
+  .auvp-legal__tabela--empilha [data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-family: var(--display);
+    font-size: var(--fs-micro);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--verde);
+  }
+}
+
+.auvp-legal__assinatura {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--ink-45);
+}
+
+/* ---- Tablet e celular ----
+   Uma coluna só, na ordem do documento. O sumário deixa de ficar preso
+   e vira um bloco destacado entre a introdução e as seções. */
+@media (max-width: 960px) {
+  .auvp-legal {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "intro"
+      "sumario"
+      "corpo";
+  }
+  .auvp-legal__intro { border-bottom: 0; margin-bottom: 0; }
+  .auvp-legal__sumario {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+    padding: 1.5rem;
+    background: var(--paper-2);
+    border: 1px solid var(--line-soft);
+  }
+}
